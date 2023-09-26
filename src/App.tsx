@@ -7,11 +7,15 @@ import { theme } from "antd";
 import Main from "@/feature/main/Main";
 import "@/assets/boilerplate.css";
 import "@/assets/App.scss";
-
+import g from "@/util/global";
 function App() {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
+  if (localStorage.getItem("g") === null) {
+    localStorage.setItem("g", JSON.stringify(g));
+  }
 
   return (
     <div className="App">

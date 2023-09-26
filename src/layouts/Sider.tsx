@@ -30,7 +30,6 @@ function getItem(
 const items: MenuItem[] = [
   getItem("근무표 조회", "/", <DesktopOutlined />),
   getItem("간호사", "/nurse", <UserOutlined />, [
-    getItem("간호사 관리", "/nurse/setting"),
     getItem("Tom", "/nurse/tom"),
     getItem("Bill", "/nurse/bill"),
     getItem("Alex", "/nurse/alex"),
