@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   DesktopOutlined,
   FileOutlined,
@@ -7,7 +7,7 @@ import {
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Layout, Menu } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const { Sider } = Layout;
 
@@ -47,6 +47,14 @@ const MySider = () => {
       navigate(key);
     }
   };
+  const location = useLocation();
+  const [selectedMenu, setSelectedMenu] = useState([location.pathname]);
+
+  useEffect(() => {
+    setSelectedMenu([location.pathname]);
+    console.log(location);
+  }, [location]);
+
   return (
     <Sider
       collapsible
@@ -57,10 +65,10 @@ const MySider = () => {
       <div className="demo-logo-vertical" />
       <Menu
         theme="light"
-        defaultSelectedKeys={["/"]}
         mode="inline"
         items={items}
         onClick={handleMenuClick}
+        selectedKeys={selectedMenu}
       />
     </Sider>
   );
