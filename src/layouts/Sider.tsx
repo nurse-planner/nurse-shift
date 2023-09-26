@@ -52,10 +52,11 @@ const MySider = () => {
       collapsible
       collapsed={collapsed}
       onCollapse={(value) => setCollapsed(value)}
+      theme="light"
     >
       <div className="demo-logo-vertical" />
       <Menu
-        theme="dark"
+        theme="light"
         defaultSelectedKeys={["/"]}
         mode="inline"
         items={items}

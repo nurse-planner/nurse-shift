@@ -6,6 +6,7 @@ const NotFound = () => {
       status="404"
       title="404"
       subTitle="Sorry, the page you visited does not exist."
+      className="result"
       extra={<Button type="primary">Back Home</Button>}
     />
   );

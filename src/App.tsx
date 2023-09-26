@@ -1,11 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NotFound from "@/feature/error/NotFound";
-import { Breadcrumb, Layout } from "antd";
+import { Layout } from "antd";
 import MySider from "@/layouts/Sider";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import { theme } from "antd";
 import Main from "@/feature/main/Main";
-import "@/App.css";
+import "@/assets/boilerplate.css";
+import "@/assets/App.scss";
 
 function App() {
   const {
@@ -18,12 +19,13 @@ function App() {
         <Layout style={{ minHeight: "100vh" }}>
           <MySider />
           <Layout>
-            <Header style={{ padding: 0, background: colorBgContainer }} />
+            <Header
+              className="header"
+              style={{ padding: 0, background: colorBgContainer }}
+            >
+              <h1>Nurse planner</h1>
+            </Header>
             <Content style={{ margin: "0 16px" }}>
-              <Breadcrumb style={{ margin: "16px 0" }}>
-                <Breadcrumb.Item>User</Breadcrumb.Item>
-                <Breadcrumb.Item>Bill</Breadcrumb.Item>
-              </Breadcrumb>
               <Routes>
                 <Route path="/" element={<Main />}></Route>
                 {/* 상단에 위치하는 라우트들의 규칙을 모두 확인, 일치하는 라우트가 없는경우 처리 */}
