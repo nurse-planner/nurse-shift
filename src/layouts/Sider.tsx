@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import {
   DesktopOutlined,
   FileOutlined,
-  PieChartOutlined,
   TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Layout, Menu } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const { Sider } = Layout;
 
@@ -28,22 +28,25 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-  getItem("Option 1", "1", <PieChartOutlined />),
-  getItem("Option 2", "2", <DesktopOutlined />),
-  getItem("User", "sub1", <UserOutlined />, [
-    getItem("Tom", "3"),
-    getItem("Bill", "4"),
-    getItem("Alex", "5"),
+  getItem("근무표 조회", "/", <DesktopOutlined />),
+  getItem("간호사", "/nurse", <UserOutlined />, [
+    getItem("간호사 관리", "/nurse/setting"),
+    getItem("Tom", "/nurse/tom"),
+    getItem("Bill", "/nurse/bill"),
+    getItem("Alex", "/nurse/alex"),
   ]),
-  getItem("Team", "sub2", <TeamOutlined />, [
-    getItem("Team 1", "6"),
-    getItem("Team 2", "8"),
-  ]),
-  getItem("Files", "9", <FileOutlined />),
+  getItem("팀", "/team", <TeamOutlined />),
+  getItem("Files", "/files", <FileOutlined />),
 ];
 
 const MySider = () => {
+  const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
+  const handleMenuClick = ({ key }: { key: string }) => {
+    if (key) {
+      navigate(key);
+    }
+  };
   return (
     <Sider
       collapsible
@@ -53,9 +56,10 @@ const MySider = () => {
       <div className="demo-logo-vertical" />
       <Menu
         theme="dark"
-        defaultSelectedKeys={["1"]}
+        defaultSelectedKeys={["/"]}
         mode="inline"
         items={items}
+        onClick={handleMenuClick}
       />
     </Sider>
   );
