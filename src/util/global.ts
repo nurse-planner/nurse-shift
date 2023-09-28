@@ -1,4 +1,4 @@
-import Nurse from "./../interface/nurse";
+import Nurse from "@/features/nurses/types";
 const g = {
   nurseList: [] as Nurse[],
 };
