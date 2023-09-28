@@ -1,6 +1,5 @@
 import { Space, Table, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
-
 export const Nurses = () => {
   interface DataType {
     key: string;
@@ -81,10 +80,30 @@ export const Nurses = () => {
       tags: ["cool", "teacher"],
     },
   ];
-
+  // rowSelection object indicates the need for row selection
+  const rowSelection = {
+    onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
+      console.log(
+        `selectedRowKeys: ${selectedRowKeys}`,
+        "selectedRows: ",
+        selectedRows
+      );
+    },
+    getCheckboxProps: (record: DataType) => ({
+      disabled: record.name === "Disabled User", // Column configuration not to be checked
+      name: record.name,
+    }),
+  };
   return (
     <div>
-      <Table columns={columns} dataSource={data} />
+      <Table
+        columns={columns}
+        dataSource={data}
+        rowSelection={{
+          type: "radio",
+          ...rowSelection,
+        }}
+      />
     </div>
   );
 };
