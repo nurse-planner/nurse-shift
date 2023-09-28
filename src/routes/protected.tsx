@@ -26,10 +26,10 @@ const App = () => {
 
 export const protectedRoutes = [
   {
-    path: "/app",
+    path: "/dashboard",
     element: <App />,
     children: [
-      { path: "nurse/*", element: <div> zzz</div> },
+      { path: "nurse/*", element: <Nurses /> },
       { path: "*", element: <Navigate to="." /> },
     ],
   },
