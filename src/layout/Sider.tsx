@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   DesktopOutlined,
   FileOutlined,
   TeamOutlined,
   UserOutlined,
-} from "@ant-design/icons";
-import type { MenuProps } from "antd";
-import { Layout, Menu } from "antd";
-import { useLocation, useNavigate } from "react-router-dom";
+} from '@ant-design/icons';
+import type { MenuProps } from 'antd';
+import { Layout, Menu } from 'antd';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const { Sider } = Layout;
 
-type MenuItem = Required<MenuProps>["items"][number];
+type MenuItem = Required<MenuProps>['items'][number];
 
 function getItem(
   label: React.ReactNode,
@@ -28,14 +28,10 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-  getItem("근무표 조회", "/", <DesktopOutlined />),
-  getItem("간호사", "/nurse", <UserOutlined />, [
-    getItem("Tom", "/nurse/tom"),
-    getItem("Bill", "/nurse/bill"),
-    getItem("Alex", "/nurse/alex"),
-  ]),
-  getItem("팀", "/team", <TeamOutlined />),
-  getItem("Files", "/files", <FileOutlined />),
+  getItem('근무표 조회', '/', <DesktopOutlined />),
+  getItem('간호사', 'nurse', <UserOutlined />),
+  getItem('팀', '/team', <TeamOutlined />),
+  getItem('Files', '/files', <FileOutlined />),
 ];
 
 const MySider = () => {
@@ -59,12 +55,12 @@ const MySider = () => {
       collapsible
       collapsed={collapsed}
       onCollapse={(value) => setCollapsed(value)}
-      theme="light"
+      theme='light'
     >
-      <div className="demo-logo-vertical" />
+      <div className='demo-logo-vertical' />
       <Menu
-        theme="light"
-        mode="inline"
+        theme='light'
+        mode='inline'
         items={items}
         onClick={handleMenuClick}
         selectedKeys={selectedMenu}

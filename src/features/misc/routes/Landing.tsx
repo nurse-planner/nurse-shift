@@ -1,22 +1,21 @@
-//import { useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 import logo from "@/assets/react.svg";
 import { Button } from "antd";
-// import { Button } from "@/components/Elements";
-// import { Head } from "@/components/Head";
 // import { useAuth } from "@/lib/auth";
 
 export const Landing = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   //const { user } = useAuth();
 
-  //   const handleStart = () => {
-  //     if (user) {
-  //       navigate("/app");
-  //     } else {
-  //       navigate("/auth/login");
-  //     }
-  //   };
+    const handleStart = () => {
+      // if (user) {
+      //   navigate("/app");
+      // } else {
+      //   navigate("/auth/login");
+      // }
+      navigate("dashboard")
+    };
 
   return (
     <>
@@ -30,7 +29,7 @@ export const Landing = () => {
           <div className="mt-8 flex justify-center">
             <div className="inline-flex rounded-md shadow">
               <Button
-              // onClick={handleStart}
+                onClick={handleStart}
               >
                 Get started
               </Button>

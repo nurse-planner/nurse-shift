@@ -3,10 +3,12 @@
   width: 100%;
 }
 .header {
+  display: flex;
+  align-items: center;
   h1 {
     font-size: 1.5rem;
     font-weight: 600;
-    margin-left: 2rem;
+    margin: 0 2rem;
   }
 }
 .result {

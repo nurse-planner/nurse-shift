@@ -30,7 +30,7 @@ export const protectedRoutes = [
     element: <App />,
     children: [
       { path: "nurse/*", element: <Nurses /> },
-      { path: "*", element: <Navigate to="." /> },
+      { path: "*", element: <Navigate to="nurse" /> },
     ],
   },
 ];

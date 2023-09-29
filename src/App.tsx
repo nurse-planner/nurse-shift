@@ -1,5 +1,4 @@
 import "@/assets/boilerplate.css";
-import "@/assets/App.scss";
 import g from "@/util/global";
 import { AppRoutes } from "@/routes";
 import { AppProvider } from "./providers/app";
