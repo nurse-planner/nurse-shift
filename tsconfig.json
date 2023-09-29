@@ -23,7 +23,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }],
-  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"] // 프로젝트에서 인식해야 할 파일 경로를 설정합니다.
+  "include": ["src", "src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"] // 프로젝트에서 인식해야 할 파일 경로를 설정합니다.
 }
