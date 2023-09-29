@@ -1,4 +1,4 @@
 export type BaseEntity = {
-  key: string;
+  id: string;
   name: string;
 };

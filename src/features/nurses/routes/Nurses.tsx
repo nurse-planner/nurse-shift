@@ -1,8 +1,9 @@
-import { Button, Card, Form, Input, Select, Space, Table, Tag } from 'antd';
+import { Button, Card, Space, Table, Tag, Modal } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { Nurse } from '../types/index';
 import { useState, useEffect } from 'react';
 import getNurses from '../api/getNurses';
+import NurseForm from '../components/NurseForm';
 
 export const Nurses = () => {
   const roleArray = ['Junior', 'Middle', 'Senior'];
@@ -47,7 +48,8 @@ export const Nurses = () => {
   const [nurseList, setNurseList] = useState([] as Nurse[]);
   const [selectedNurse, setSelectedNurse] = useState<Nurse | null>(null);
   const [editNurse, setEditNurse] = useState<Nurse | null>(null);
-
+  const [openAddNurseModal, setOpenAddNurseModal] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
   const rowSelection = {
     onChange: (selectedRowKeys: React.Key[], selectedRows: Nurse[]) => {
       setSelectedNurse(selectedRows[0]);
@@ -57,12 +59,37 @@ export const Nurses = () => {
 
   useEffect(() => {
     async function getNurseList() {
-      const res = await getNurses();
-      console.log(res);
+      try {
+        const res: Nurse[] = await getNurses();
+        setNurseList(res);
+        if (res.length > 0) {
+          setSelectedNurse(res[0]);
+          setEditNurse(res[0]);
+        }
+      } catch (e) {
+        console.error(e);
+      }
     }
 
     getNurseList();
   }, []);
+
+  const showModal = () => {
+    setOpenAddNurseModal(true);
+  };
+
+  const handleOk = () => {
+    setConfirmLoading(true);
+    setTimeout(() => {
+      setOpenAddNurseModal(false);
+      setConfirmLoading(false);
+    }, 2000);
+  };
+
+  const handleCancel = () => {
+    console.log('Clicked cancel button');
+    setOpenAddNurseModal(false);
+  };
 
   return (
     <div>
@@ -80,7 +107,9 @@ export const Nurses = () => {
           }}
         />
         <div>
-          <Button type='primary'>Add user</Button>
+          <Button type='primary' onClick={showModal}>
+            Add user
+          </Button>
           <Card
             title={editNurse?.name}
             style={{ width: 300 }}
@@ -90,55 +119,19 @@ export const Nurses = () => {
               <Button>Save</Button>,
             ]}
           >
-            <Form initialValues={editNurse != null ? editNurse : undefined}>
-              <Form.Item name='key' label='Id'>
-                <Input readOnly value={editNurse?.key} />
-              </Form.Item>
-              <Form.Item name='role' label='직급' rules={[{ required: true }]}>
-                <Select
-                  options={[
-                    { value: 0, label: 'Junior' },
-                    { value: 1, label: 'Middle' },
-                    { value: 2, label: 'Senior' },
-                  ]}
-                ></Select>
-              </Form.Item>
-              <Form.Item
-                name='dutyKeep'
-                label='duty keep'
-                rules={[{ required: true }]}
-              >
-                <Select
-                  options={[
-                    { value: 0, label: '없음' },
-                    { value: 1, label: 'Day' },
-                    { value: 2, label: 'Night' },
-                  ]}
-                ></Select>
-              </Form.Item>
-              <Form.Item
-                name='preseptorId'
-                label='Preseptor'
-                rules={[{ required: true }]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name='isPregnant'
-                label='임신 여부'
-                rules={[{ required: true }]}
-              >
-                <Select
-                  options={[
-                    { value: false, label: 'false' },
-                    { value: true, label: 'true' },
-                  ]}
-                ></Select>
-              </Form.Item>
-            </Form>
+            <NurseForm nurse={editNurse} />
           </Card>
         </div>
       </Space>
+      <Modal
+        title='Title'
+        open={openAddNurseModal}
+        onOk={handleOk}
+        confirmLoading={confirmLoading}
+        onCancel={handleCancel}
+      >
+        <NurseForm nurse={null} />
+      </Modal>
     </div>
   );
 };
