@@ -285,7 +285,11 @@ export const Nurses = () => {
           <Card
             title={editNurse?.name}
             style={{ width: 300 }}
-            actions={[<Button>Save changes</Button>]}
+            actions={[
+              <Button>delete</Button>,
+              <Button>refresh</Button>,
+              <Button>Save</Button>,
+            ]}
           >
             <Form initialValues={editNurse != null ? editNurse : undefined}>
               <Form.Item name='key' label='Id'>
