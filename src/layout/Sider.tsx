@@ -28,10 +28,8 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-  getItem('근무표 조회', '/dashboard', <DesktopOutlined />),
+  getItem('근무표', '/dashboard', <DesktopOutlined />),
   getItem('간호사', 'nurse', <UserOutlined />),
-  getItem('팀', 'team', <TeamOutlined />),
-  getItem('Files', 'files', <FileOutlined />),
 ];
 
 const MySider = () => {
