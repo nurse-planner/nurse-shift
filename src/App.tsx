@@ -1,10 +1,10 @@
-import "@/assets/boilerplate.css";
-import g from "@/util/global";
-import { AppRoutes } from "@/routes";
-import { AppProvider } from "./providers/app";
+import '@/assets/boilerplate.css';
+import g from '@/utils/global';
+import { AppRoutes } from '@/routes';
+import { AppProvider } from './providers/app';
 function App() {
-  if (localStorage.getItem("g") === null) {
-    localStorage.setItem("g", JSON.stringify(g));
+  if (localStorage.getItem('g') === null) {
+    localStorage.setItem('g', JSON.stringify(g));
   }
 
   return (
