@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  DesktopOutlined,
-  FileOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
+import { DesktopOutlined, UserOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Layout, Menu } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -29,7 +24,7 @@ function getItem(
 
 const items: MenuItem[] = [
   getItem('근무표', '/dashboard', <DesktopOutlined />),
-  getItem('간호사', 'nurse', <UserOutlined />),
+  getItem('간호사', '/dashboard/nurse', <UserOutlined />),
 ];
 
 const MySider = () => {
@@ -44,8 +39,8 @@ const MySider = () => {
   const [selectedMenu, setSelectedMenu] = useState([location.pathname]);
 
   useEffect(() => {
+    console.log(location.pathname);
     setSelectedMenu([location.pathname]);
-    console.log(location);
   }, [location]);
 
   return (
