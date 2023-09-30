@@ -55,7 +55,7 @@ export const Nurses = () => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const rowSelection = {
-    onChange: (selectedRowKeys: React.Key[], selectedRows: Nurse[]) => {
+    onChange: (_: React.Key[], selectedRows: Nurse[]) => {
       setSelectedNurse(selectedRows[0]);
       setEditNurse(selectedRows[0]);
     },
