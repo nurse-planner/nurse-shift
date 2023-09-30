@@ -1,9 +1,10 @@
-import { Button, Card, Space, Table, Tag, Modal } from 'antd';
+import { Button, Card, Space, Table, Tag, Modal, Form } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { Nurse } from '../types/index';
 import { useState, useEffect } from 'react';
 import getNurses from '../api/getNurses';
 import NurseForm from '../components/NurseForm';
+import checkValidNurse from '../utils/checkValidNurse';
 
 export const Nurses = () => {
   const roleArray = ['Junior', 'Middle', 'Senior'];
@@ -57,33 +58,60 @@ export const Nurses = () => {
     },
   };
 
-  useEffect(() => {
-    async function getNurseList() {
-      try {
-        const res: Nurse[] = await getNurses();
-        setNurseList(res);
-        if (res.length > 0) {
-          setSelectedNurse(res[0]);
-          setEditNurse(res[0]);
-        }
-      } catch (e) {
-        console.error(e);
+  const [addForm] = Form.useForm();
+  const [editForm] = Form.useForm();
+  const fetchNurseList = async () => {
+    try {
+      const res: Nurse[] = await getNurses();
+      setNurseList(res);
+      if (res.length > 0) {
+        setSelectedNurse(res[0]);
+        setEditNurse(res[0]);
       }
+    } catch (e) {
+      console.error(e);
     }
+  };
+  useEffect(() => {
+    if (editNurse) {
+      editForm.setFieldsValue(editNurse);
+    } else {
+      editForm.resetFields(); // editNurse가 null이면 폼 필드를 초기화합니다.
+    }
+  }, [editNurse]);
 
-    getNurseList();
+  useEffect(() => {
+    fetchNurseList();
   }, []);
 
   const showModal = () => {
     setOpenAddNurseModal(true);
   };
 
-  const handleOk = () => {
+  const handleOk = async () => {
     setConfirmLoading(true);
-    setTimeout(() => {
-      setOpenAddNurseModal(false);
+    const formData = addForm.getFieldsValue();
+    console.log(formData);
+    try {
+      const formData: Nurse = await addForm.validateFields();
+      const validCheckRes = checkValidNurse(nurseList, formData, true);
+      console.log(validCheckRes);
+      if (validCheckRes.success) {
+        setOpenAddNurseModal(false);
+        setConfirmLoading(false);
+        window.alert('간호사 추가 성공');
+        addForm.resetFields();
+        await fetchNurseList();
+      } else {
+        window.alert(validCheckRes.msg);
+      }
+    } catch (error) {
+      // 유효성 검사 에러가 발생하면 여기로 들어옵니다.
+      console.error('Validation failed:', error);
+      window.alert('양식을 채워주세요.');
+    } finally {
       setConfirmLoading(false);
-    }, 2000);
+    }
   };
 
   const handleCancel = () => {
@@ -119,7 +147,7 @@ export const Nurses = () => {
               <Button>Save</Button>,
             ]}
           >
-            <NurseForm nurse={editNurse} />
+            <NurseForm nurse={editNurse} form={editForm} />
           </Card>
         </div>
       </Space>
@@ -130,7 +158,7 @@ export const Nurses = () => {
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
       >
-        <NurseForm nurse={null} />
+        <NurseForm nurse={null} form={addForm} />
       </Modal>
     </div>
   );

@@ -1,22 +1,12 @@
-import { Form, Input, Select } from 'antd';
+import { Form, Input, Select, FormInstance } from 'antd';
 import { Nurse } from '../types/index';
-import { useEffect } from 'react';
 
-const NurseForm = (props: { nurse: Nurse | null }) => {
+const NurseForm = (props: { nurse: Nurse | null; form: FormInstance }) => {
   const editNurse = props.nurse;
-  console.log(editNurse);
-  const [form] = Form.useForm();
-  useEffect(() => {
-    if (editNurse) {
-      form.setFieldsValue(editNurse);
-    } else {
-      form.resetFields(); // editNurse가 null이면 폼 필드를 초기화합니다.
-    }
-  }, [editNurse]);
 
   return (
-    <Form form={form}>
-      <Form.Item name='key' label='ID'>
+    <Form form={props.form}>
+      <Form.Item name='id' label='ID' rules={[{ required: true }]}>
         <Input readOnly={editNurse != null ? true : false} />
       </Form.Item>
       <Form.Item name='role' label='직급' rules={[{ required: true }]}>
@@ -37,11 +27,7 @@ const NurseForm = (props: { nurse: Nurse | null }) => {
           ]}
         ></Select>
       </Form.Item>
-      <Form.Item
-        name='preceptorId'
-        label='Preceptor'
-        rules={[{ required: true }]}
-      >
+      <Form.Item name='preceptorId' label='Preceptor'>
         <Input />
       </Form.Item>
       <Form.Item
