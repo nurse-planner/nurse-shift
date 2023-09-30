@@ -6,6 +6,7 @@ import getNurses from '../api/getNurses';
 import NurseForm from '../components/NurseForm';
 import checkValidNurse from '../utils/checkValidNurse';
 import addNurse from '../api/addNurse';
+import deleteNurse from '../api/deleteNurse';
 
 export const Nurses = () => {
   const roleArray = ['Junior', 'Middle', 'Senior'];
@@ -52,6 +53,7 @@ export const Nurses = () => {
   const [editNurse, setEditNurse] = useState<Nurse | null>(null);
   const [openAddNurseModal, setOpenAddNurseModal] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
   const rowSelection = {
     onChange: (selectedRowKeys: React.Key[], selectedRows: Nurse[]) => {
       setSelectedNurse(selectedRows[0]);
@@ -120,6 +122,20 @@ export const Nurses = () => {
     setOpenAddNurseModal(false);
   };
 
+  const onClickDeleteBtn = async () => {
+    setDeleteLoading(true);
+    try {
+      if (editNurse != null) {
+        await deleteNurse(editNurse.id);
+        await fetchNurseList();
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setDeleteLoading(false);
+    }
+  };
+
   return (
     <div>
       <Space className='w-full'>
@@ -143,7 +159,9 @@ export const Nurses = () => {
             title={editNurse?.name}
             style={{ width: 300 }}
             actions={[
-              <Button>delete</Button>,
+              <Button loading={deleteLoading} onClick={onClickDeleteBtn}>
+                delete
+              </Button>,
               <Button>refresh</Button>,
               <Button>Save</Button>,
             ]}
