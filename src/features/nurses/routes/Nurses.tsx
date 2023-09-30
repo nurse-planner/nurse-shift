@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import getNurses from '../api/getNurses';
 import NurseForm from '../components/NurseForm';
 import checkValidNurse from '../utils/checkValidNurse';
+import addNurse from '../api/addNurse';
 
 export const Nurses = () => {
   const roleArray = ['Junior', 'Middle', 'Senior'];
@@ -95,8 +96,8 @@ export const Nurses = () => {
     try {
       const formData: Nurse = await addForm.validateFields();
       const validCheckRes = checkValidNurse(nurseList, formData, true);
-      console.log(validCheckRes);
       if (validCheckRes.success) {
+        await addNurse(formData);
         setOpenAddNurseModal(false);
         setConfirmLoading(false);
         window.alert('간호사 추가 성공');
