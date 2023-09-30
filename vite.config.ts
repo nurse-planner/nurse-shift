@@ -5,7 +5,7 @@ import { resolve } from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/nurse-planner/',
+  base: '/nurse-shift/',
   resolve: {
     alias: [
       { find: '@src', replacement: resolve(__dirname, 'src') },
@@ -16,7 +16,4 @@ export default defineConfig({
     ],
   },
   plugins: [react(), tsconfigPaths()],
-  build: {
-    outDir: 'build',
-  },
 });

@@ -26,7 +26,7 @@ const App = () => {
 
 export const protectedRoutes = [
   {
-    path: '/dashboard',
+    path: '/nurse-shift/dashboard/',
     element: <App />,
     children: [
       { path: 'nurse/*', element: <Nurses /> },

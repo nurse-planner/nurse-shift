@@ -21,10 +21,10 @@ function getItem(
     label,
   } as MenuItem;
 }
-
+const baseURL = '/nurse-shift/dashboard';
 const items: MenuItem[] = [
-  getItem('근무표', '/dashboard', <DesktopOutlined />),
-  getItem('간호사', '/dashboard/nurse', <UserOutlined />),
+  getItem('근무표', baseURL, <DesktopOutlined />),
+  getItem('간호사', baseURL + '/nurse', <UserOutlined />),
 ];
 
 const MySider = () => {
