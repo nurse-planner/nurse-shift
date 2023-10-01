@@ -1,5 +1,5 @@
 import { Layout } from "../components/Layout";
-import { RegisterForm } from "../components/RegisterForm";
+import { RegisterForm } from "../components/AuthForm";
 
 export const Register = () => {
   return (
