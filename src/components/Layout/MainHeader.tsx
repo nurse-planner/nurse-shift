@@ -1,15 +1,15 @@
+import storage from "@/utils/storage";
 import { useNavigate } from "react-router";
 
 export const MainHeader = () => {
   const navigate = useNavigate();
-  //const { user } = useAuth();
 
   const handleStart = () => {
-    // if (user) {
-    //   navigate("/app");
-    // } else {
-    //   navigate("/auth/login");
-    // }
+    if (storage.getToken()) {
+      navigate("dashboard");
+    } else {
+      navigate("auth/login");
+    }
     navigate("dashboard");
   };
 
