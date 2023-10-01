@@ -1,5 +1,5 @@
 import { Layout } from "antd";
-import MySider from "@/layout/Sider";
+import MySider from "@/components/Layout/Sider";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import { theme } from "antd";
 import "@/assets/boilerplate.css";

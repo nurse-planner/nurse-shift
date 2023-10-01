@@ -1,11 +1,11 @@
-import { Suspense } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Suspense } from "react";
+import { Navigate, Outlet } from "react-router-dom";
 
-import { MainLayout } from '@/layout';
-import { Spin } from 'antd';
-import { lazyImport } from '@/utils/lazyImport';
+import { MainLayout } from "@/components/Layout";
+import { Spin } from "antd";
+import { lazyImport } from "@/utils/lazyImport";
 
-const { Nurses } = lazyImport(() => import('@/features/nurses'), 'Nurses');
+const { Nurses } = lazyImport(() => import("@/features/nurses"), "Nurses");
 
 // eslint-disable-next-line react-refresh/only-export-components
 const App = () => {
@@ -13,7 +13,7 @@ const App = () => {
     <MainLayout>
       <Suspense
         fallback={
-          <div className='h-full w-full flex items-center justify-center'>
+          <div className="h-full w-full flex items-center justify-center">
             <Spin spinning={true} />
           </div>
         }
@@ -26,11 +26,11 @@ const App = () => {
 
 export const protectedRoutes = [
   {
-    path: '/nurse-shift/dashboard/',
+    path: "/nurse-shift/dashboard/",
     element: <App />,
     children: [
-      { path: 'nurse/*', element: <Nurses /> },
-      { path: '*', element: <Navigate to='nurse' /> },
+      { path: "nurse/*", element: <Nurses /> },
+      { path: "*", element: <Navigate to="nurse" /> },
     ],
   },
 ];
