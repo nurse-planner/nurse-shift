@@ -1,15 +1,21 @@
 import { Button, Form, Input } from "antd";
+import { registerWithEmailAndPassword } from "../api/register";
 
 type FieldType = {
-  email?: string;
-  password?: string;
+  email: string;
+  password: string;
   //   remember?: string;
 };
-type RegisterFormProps = {
-  onSuccess: () => void;
+
+const onFinish = async (values: FieldType) => {
+  await registerWithEmailAndPassword(values);
 };
 
-export function RegisterForm({ onSuccess }: RegisterFormProps) {
+const onFinishFailed = (errorInfo: unknown) => {
+  console.log("Failed:", errorInfo);
+};
+
+export function RegisterForm() {
   return (
     <Form
       name="basic"
@@ -17,8 +23,8 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
       wrapperCol={{ span: 16 }}
       style={{ maxWidth: 600 }}
       initialValues={{ remember: true }}
-      onFinish={onSuccess}
-      //   onFinishFailed={onFinishFailed}
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
       <Form.Item<FieldType>
