@@ -1,10 +1,10 @@
 import { Layout } from "../components/Layout";
-import { RegisterForm } from "../components/AuthForm";
+import { LoginForm } from "../components/LoginForm";
 
 export const Login = () => {
   return (
     <Layout title="Login your account">
-      <RegisterForm />
+      <LoginForm />
     </Layout>
   );
 };

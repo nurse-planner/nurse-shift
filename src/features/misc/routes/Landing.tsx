@@ -12,7 +12,7 @@ export const Landing = () => {
     if (storage.getToken()) {
       navigate("/dashboard");
     } else {
-      navigate("/nurse-shift/auth/register");
+      navigate("/nurse-shift/auth/login");
     }
   };
 
