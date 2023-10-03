@@ -2,6 +2,7 @@ import { Button, Form, Input } from "antd";
 import { loginWithEmailAndPassword } from "../api/loginUser";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import storage from "@/utils/storage";
 
 type FieldType = {
   email: string;
@@ -14,15 +15,13 @@ export function LoginForm() {
   const onFinish = async (values: FieldType) => {
     try {
       const res = await loginWithEmailAndPassword(values);
-      console.log(res);
-      Swal.fire("Good job!", "회원가입에 성공하였습니다.", "success").then(
-        () => {
-          navigate("/nurse-shift/dashboard");
-        }
-      );
+      storage.setToken(res.jwt);
+      Swal.fire("Good job!", "로그인 성공하였습니다.", "success").then(() => {
+        navigate("/nurse-shift/dashboard");
+      });
     } catch (err) {
-      // TODO: 나중에 결과 부분 삭제하기
-      Swal.fire("Error!", "회원가입에 실패하였습니다.", "error");
+      console.log(err);
+      Swal.fire("Error!", "로그인에 실패하였습니다.", "error");
     }
   };
 

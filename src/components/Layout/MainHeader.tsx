@@ -12,6 +12,10 @@ export const MainHeader = () => {
     }
   };
 
+  const logout = () => {
+    localStorage.clear();
+  };
+
   return (
     <div>
       <nav className="z-10 w-full absolute font-sans">
@@ -69,13 +73,27 @@ export const MainHeader = () => {
                   <li>
                     <a
                       href="https://github.com/nurse-planner"
-                      className="block md:px-4 transition hover:text-primary hover:font-bold"
+                      className="block md:px-4 transition hover:text-primary"
                     >
                       <span>Github</span>
                     </a>
                   </li>
                 </ul>
               </div>
+              {storage.getToken() !== null ? (
+                <div className="text-gray-600 dark:text-gray-300 lg:pr-4 lg:w-auto w-full lg:pt-0">
+                  <ul className="tracking-wide font-medium lg:text-sm flex-col flex lg:flex-row gap-6 lg:gap-0">
+                    <li>
+                      <div
+                        onClick={logout}
+                        className="block md:px-4 transition hover:text-primary cursor-pointer"
+                      >
+                        <span>Sign out</span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              ) : null}
 
               <div className="mt-12 lg:mt-0">
                 <div

@@ -15,7 +15,7 @@ export function RegisterForm() {
       await registerWithEmailAndPassword(values);
       Swal.fire("Good job!", "회원가입에 성공하였습니다.", "success").then(
         () => {
-          navigate("/nurse-shift/login");
+          navigate("/nurse-shift/auth/login");
         }
       );
     } catch (err) {

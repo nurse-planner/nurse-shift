@@ -7,8 +7,12 @@ export type RegisterCredentialsDTO = {
   password: string;
 };
 
-export const loginWithEmailAndPassword = (
+export const loginWithEmailAndPassword = async (
   data: RegisterCredentialsDTO
 ): Promise<UserResponse> => {
-  return commonAxios.post("/auth/login", data);
+  const res = await commonAxios.post("/auth/login", data);
+  return {
+    user: res.data.user,
+    jwt: res.data.jwt,
+  };
 };
