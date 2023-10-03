@@ -19,6 +19,9 @@ export const MainHeader = () => {
     navigate("/nurse-shift");
   };
 
+  const goHome = () => {
+    navigate("/nurse-shift");
+  };
   return (
     <div>
       <nav className="z-10 w-full absolute font-sans">
@@ -32,13 +35,13 @@ export const MainHeader = () => {
               className="hidden peer"
             />
             <div className="relative z-20 w-full flex justify-between lg:w-max md:px-0">
-              <a
-                href="/"
+              <div
+                onClick={goHome}
                 aria-label="logo"
                 className="flex space-x-2 items-center"
               >
                 <img className="h-12 w-auto" src={logo} alt="Workflow" />
-              </a>
+              </div>
 
               <div className="relative flex items-center lg:hidden max-h-10">
                 <label
