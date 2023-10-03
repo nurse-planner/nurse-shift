@@ -10,7 +10,7 @@ export const Landing = () => {
 
   const handleStart = () => {
     if (storage.getToken()) {
-      navigate("nurse-shift/dashboard");
+      navigate("/nurse-shift/dashboard");
     } else {
       navigate("/nurse-shift/auth/login");
     }
