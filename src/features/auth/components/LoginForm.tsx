@@ -25,6 +25,10 @@ export function LoginForm() {
     }
   };
 
+  const goRegister = () => {
+    navigate("/nurse-shift/auth/register");
+  };
+
   const onFinishFailed = (errorInfo: unknown) => {
     console.log("Failed:", errorInfo);
   };
@@ -65,12 +69,12 @@ export function LoginForm() {
       <Form.Item>
         <p className="text-gray-400 w-full text-center">
           Not registered?{" "}
-          <a
-            href="/nurse-shift/auth/register"
-            className="text-blue-500 hover:text-blue-700"
+          <span
+            onClick={goRegister}
+            className="text-blue-500 hover:text-blue-700 cursor-pointer"
           >
             Create an account
-          </a>
+          </span>
         </p>
       </Form.Item>
     </Form>

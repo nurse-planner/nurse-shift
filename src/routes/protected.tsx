@@ -7,7 +7,10 @@ import { lazyImport } from "@/utils/lazyImport";
 
 const { Nurses } = lazyImport(() => import("@/features/nurses"), "Nurses");
 const { NotFound } = lazyImport(() => import("@/features/misc"), "NotFound");
-
+const { AuthRoutes } = lazyImport(
+  () => import("@/features/auth"),
+  "AuthRoutes"
+);
 // eslint-disable-next-line react-refresh/only-export-components
 const App = () => {
   return (
@@ -26,6 +29,10 @@ const App = () => {
 };
 
 export const protectedRoutes = [
+  {
+    path: "/nurse-shift/auth/*",
+    element: <AuthRoutes />,
+  },
   {
     path: "/nurse-shift/dashboard/",
     element: <App />,

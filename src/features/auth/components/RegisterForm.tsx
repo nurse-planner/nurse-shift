@@ -23,6 +23,10 @@ export function RegisterForm() {
     }
   };
 
+  const goLogin = () => {
+    navigate("/nurse-shift/auth/login");
+  };
+
   const onFinishFailed = (errorInfo: unknown) => {
     console.log("Failed:", errorInfo);
   };
@@ -64,12 +68,12 @@ export function RegisterForm() {
       <Form.Item>
         <p className="text-gray-400 w-full text-center">
           Already registered?{" "}
-          <a
-            href="/nurse-shift/auth/login"
-            className="text-blue-500 hover:text-blue-700"
+          <span
+            onClick={goLogin}
+            className="cursor-pointer text-blue-500 hover:text-blue-700"
           >
             login
-          </a>
+          </span>
         </p>
       </Form.Item>
     </Form>
