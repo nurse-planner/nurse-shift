@@ -1,7 +1,7 @@
 import { Button, Result } from "antd";
 import { useNavigate } from "react-router-dom";
 
-const NotFound = () => {
+export const NotFound = () => {
   const navigate = useNavigate();
   return (
     <Result
@@ -22,5 +22,3 @@ const NotFound = () => {
     />
   );
 };
-
-export default NotFound;
