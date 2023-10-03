@@ -1,5 +1,7 @@
 import { Button, Form, Input } from "antd";
 import { loginWithEmailAndPassword } from "../api/loginUser";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 type FieldType = {
   email: string;
@@ -7,15 +9,27 @@ type FieldType = {
   //   remember?: string;
 };
 
-const onFinish = async (values: FieldType) => {
-  await loginWithEmailAndPassword(values);
-};
-
-const onFinishFailed = (errorInfo: unknown) => {
-  console.log("Failed:", errorInfo);
-};
-
 export function LoginForm() {
+  const navigate = useNavigate();
+  const onFinish = async (values: FieldType) => {
+    try {
+      await loginWithEmailAndPassword(values);
+      Swal.fire("Good job!", "회원가입에 성공하였습니다.", "success").then(
+        () => {
+          navigate("nurse-shift/dashboard");
+        }
+      );
+    } catch (err) {
+      // TODO: 나중에  navigate 부분 삭제하기
+      Swal.fire("Error!", "회원가입에 실패하였습니다.", "error").then(() => {
+        navigate("/nurse-shift/dashboard");
+      });
+    }
+  };
+
+  const onFinishFailed = (errorInfo: unknown) => {
+    console.log("Failed:", errorInfo);
+  };
   return (
     <Form
       name="basic"

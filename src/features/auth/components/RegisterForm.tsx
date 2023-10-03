@@ -1,26 +1,32 @@
 import { Button, Form, Input } from "antd";
 import { registerWithEmailAndPassword } from "../api/register";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 type FieldType = {
   email: string;
   password: string;
   //   remember?: string;
 };
 
-const onFinish = async (values: FieldType) => {
-  try {
-    await registerWithEmailAndPassword(values);
-    Swal.fire("Good job!", "You clicked the button!", "success");
-  } catch (err) {
-    Swal.fire("Good job!", "You clicked the button!", "error");
-  }
-};
-
-const onFinishFailed = (errorInfo: unknown) => {
-  console.log("Failed:", errorInfo);
-};
-
 export function RegisterForm() {
+  const navigate = useNavigate();
+  const onFinish = async (values: FieldType) => {
+    try {
+      await registerWithEmailAndPassword(values);
+      Swal.fire("Good job!", "회원가입에 성공하였습니다.", "success").then(
+        () => {
+          navigate("/nurse-shift/login");
+        }
+      );
+    } catch (err) {
+      Swal.fire("Error!", "회원가입에 실패하였습니다.", "error");
+    }
+  };
+
+  const onFinishFailed = (errorInfo: unknown) => {
+    console.log("Failed:", errorInfo);
+  };
+
   return (
     <Form
       name="basic"
