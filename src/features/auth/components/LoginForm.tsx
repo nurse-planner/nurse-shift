@@ -2,6 +2,7 @@ import { Button, Form, Input } from "antd";
 import { loginWithEmailAndPassword } from "../api/loginUser";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import storage from "@/utils/storage";
 
 type FieldType = {
   email: string;
@@ -20,8 +21,9 @@ export function LoginForm() {
         }
       );
     } catch (err) {
-      // TODO: 나중에  navigate 부분 삭제하기
+      // TODO: 나중에 결과 부분 삭제하기
       Swal.fire("Error!", "회원가입에 실패하였습니다.", "error").then(() => {
+        storage.setToken("sample_token");
         navigate("/nurse-shift/dashboard");
       });
     }
