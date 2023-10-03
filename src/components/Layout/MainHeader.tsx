@@ -1,6 +1,7 @@
 import storage from "@/utils/storage";
 import { useNavigate } from "react-router";
 import logo from "@/assets/logo.svg";
+import Swal from "sweetalert2";
 export const MainHeader = () => {
   const navigate = useNavigate();
 
@@ -14,6 +15,8 @@ export const MainHeader = () => {
 
   const logout = () => {
     localStorage.clear();
+    Swal.fire("Success!", "성공적으로 로그아웃 되었습니다.", "success");
+    navigate("/nurse-shift");
   };
 
   return (
