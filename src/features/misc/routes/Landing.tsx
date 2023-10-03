@@ -1,20 +1,19 @@
 import { useNavigate } from "react-router";
 
 import { MainHeader } from "@/components/Layout/MainHeader";
+import storage from "@/utils/storage";
 
 // import { useAuth } from "@/lib/auth";
 
 export const Landing = () => {
   const navigate = useNavigate();
-  //const { user } = useAuth();
 
   const handleStart = () => {
-    // if (user) {
-    //   navigate("/app");
-    // } else {
-    //   navigate("/auth/login");
-    // }
-    navigate("dashboard");
+    if (storage.getToken()) {
+      navigate("nurse-shift/dashboard");
+    } else {
+      navigate("/nurse-shift/auth/login");
+    }
   };
 
   return (

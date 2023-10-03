@@ -1,11 +1,12 @@
 import { Suspense } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 import { MainLayout } from "@/components/Layout";
 import { Spin } from "antd";
 import { lazyImport } from "@/utils/lazyImport";
 
 const { Nurses } = lazyImport(() => import("@/features/nurses"), "Nurses");
+const { NotFound } = lazyImport(() => import("@/features/misc"), "NotFound");
 
 // eslint-disable-next-line react-refresh/only-export-components
 const App = () => {
@@ -30,7 +31,7 @@ export const protectedRoutes = [
     element: <App />,
     children: [
       { path: "nurse/*", element: <Nurses /> },
-      { path: "*", element: <Navigate to="nurse" /> },
+      { path: "*", element: <NotFound /> },
     ],
   },
 ];
