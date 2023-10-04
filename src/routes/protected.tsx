@@ -7,6 +7,7 @@ import { lazyImport } from "@/utils/lazyImport";
 
 const { Nurses } = lazyImport(() => import("@/features/nurses"), "Nurses");
 const { NotFound } = lazyImport(() => import("@/features/misc"), "NotFound");
+const { Shifts } = lazyImport(() => import("@/features/shifts"), "Shifts");
 const { AuthRoutes } = lazyImport(
   () => import("@/features/auth"),
   "AuthRoutes"
@@ -37,6 +38,7 @@ export const protectedRoutes = [
     path: "/nurse-shift/dashboard/",
     element: <App />,
     children: [
+      { path: "", element: <Shifts /> },
       { path: "nurse/*", element: <Nurses /> },
       { path: "*", element: <NotFound /> },
     ],
