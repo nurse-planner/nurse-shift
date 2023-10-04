@@ -7,6 +7,7 @@ import NurseForm from "../components/NurseForm";
 import checkValidNurse from "../utils/checkValidNurse";
 import addNurse from "../api/addNurse";
 import deleteNurse from "../api/deleteNurse";
+import patchNurse from "../api/editNurse";
 import Swal from "sweetalert2";
 
 export const Nurses = () => {
@@ -94,8 +95,6 @@ export const Nurses = () => {
 
   const handleOk = async () => {
     setConfirmLoading(true);
-    const formData = addForm.getFieldsValue();
-    console.log(formData);
     try {
       const formData: Nurse = await addForm.validateFields();
       const validCheckRes = checkValidNurse(nurseList, formData, true);
@@ -140,6 +139,27 @@ export const Nurses = () => {
   const onClickRefreshBtn = () => {
     editForm.setFieldsValue(editNurse);
   };
+
+  const onClickConfirmEditBtn = async () => {
+    try {
+      const formData: Nurse = await editForm.validateFields();
+      const validCheckRes = checkValidNurse(nurseList, formData, false);
+      if (validCheckRes.success) {
+        await patchNurse(formData);
+        Swal.fire("Success", "간호사 수정 성공!", "success");
+        editForm.resetFields();
+        await fetchNurseList();
+      } else {
+        Swal.fire("Fail", "validCheckRes.msg", "error");
+      }
+    } catch (error) {
+      // 유효성 검사 에러가 발생하면 여기로 들어옵니다.
+      console.error("Validation failed:", error);
+      window.alert("양식을 채워주세요.");
+    } finally {
+      setConfirmLoading(false);
+    }
+  };
   return (
     <div className="p-4">
       <div className="flex justify-around">
@@ -168,7 +188,7 @@ export const Nurses = () => {
                 delete
               </Button>,
               <Button onClick={onClickRefreshBtn}>refresh</Button>,
-              <Button>Save</Button>,
+              <Button onClick={onClickConfirmEditBtn}>Save</Button>,
             ]}
           >
             <NurseForm nurse={editNurse} form={editForm} />

@@ -6,8 +6,11 @@ const NurseForm = (props: { nurse: Nurse | null; form: FormInstance }) => {
 
   return (
     <Form form={props.form}>
-      <Form.Item name="name" label="이름" rules={[{ required: true }]}>
+      <Form.Item name="id" label="Id" rules={[{ required: true }]}>
         <Input readOnly={editNurse != null ? true : false} />
+      </Form.Item>
+      <Form.Item name="name" label="이름" rules={[{ required: true }]}>
+        <Input />
       </Form.Item>
       <Form.Item name="role" label="직급" rules={[{ required: true }]}>
         <Select
