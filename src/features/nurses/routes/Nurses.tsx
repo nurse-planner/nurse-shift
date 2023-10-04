@@ -137,6 +137,9 @@ export const Nurses = () => {
     }
   };
 
+  const onClickRefreshBtn = () => {
+    editForm.setFieldsValue(editNurse);
+  };
   return (
     <div className="p-4">
       <div className="flex justify-around">
@@ -164,7 +167,7 @@ export const Nurses = () => {
               <Button loading={deleteLoading} onClick={onClickDeleteBtn}>
                 delete
               </Button>,
-              <Button>refresh</Button>,
+              <Button onClick={onClickRefreshBtn}>refresh</Button>,
               <Button>Save</Button>,
             ]}
           >
