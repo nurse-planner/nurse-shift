@@ -1,4 +1,4 @@
-import { Button, Card, Space, Table, Tag, Modal, Form } from "antd";
+import { Button, Card, Table, Tag, Modal, Form } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { Nurse } from "../types/index";
 import { useState, useEffect } from "react";
@@ -138,8 +138,8 @@ export const Nurses = () => {
   };
 
   return (
-    <div>
-      <Space className="w-full">
+    <div className="p-4">
+      <div className="flex justify-around">
         <Table
           columns={columns}
           dataSource={nurseList}
@@ -151,10 +151,11 @@ export const Nurses = () => {
           pagination={{
             pageSize: 10,
           }}
+          className="w-4/5"
         />
-        <div>
-          <Button type="primary" onClick={showModal}>
-            Add user
+        <div className="flex flex-col items-end">
+          <Button type="primary" onClick={showModal} className="w-28 mb-4">
+            간호사 추가
           </Button>
           <Card
             title={editNurse?.name}
@@ -170,7 +171,7 @@ export const Nurses = () => {
             <NurseForm nurse={editNurse} form={editForm} />
           </Card>
         </div>
-      </Space>
+      </div>
       <Modal
         title="간호사 생성"
         open={openAddNurseModal}
