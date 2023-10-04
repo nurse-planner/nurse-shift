@@ -1,18 +1,19 @@
-import { Layout } from "antd";
+import { Breadcrumb, Layout } from "antd";
 import MySider from "@/components/Layout/Sider";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import { theme } from "antd";
 import "@/assets/boilerplate.css";
 import "@/assets/App.scss";
 import logo from "@/assets/logo.svg";
-import { useNavigate } from "react-router-dom";
-
+import { useLocation, useNavigate } from "react-router-dom";
+import { HomeOutlined, UserOutlined } from "@ant-design/icons";
 type MainLayoutProps = {
   children: React.ReactNode;
 };
 
 export const MainLayout = ({ children }: MainLayoutProps) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -37,7 +38,33 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
               <img className="h-8 ml-4 w-auto" src={logo} alt="Workflow" />
             </div>
           </Header>
-          <Content style={{ margin: "0 16px" }}>{children}</Content>
+          <Content className="p-4">
+            <Breadcrumb
+              items={[
+                {
+                  href: "/nurse-shift/",
+                  title: <HomeOutlined />,
+                },
+                {
+                  href: "/nurse-shift/dashboard",
+                  title: (
+                    <>
+                      <UserOutlined />
+                      <span>Application List</span>
+                    </>
+                  ),
+                },
+                {
+                  title:
+                    location.pathname == "/nurse-shift/dashboard/nurse"
+                      ? "간호사 관리"
+                      : "근무표 관리",
+                },
+              ]}
+            />
+
+            {children}
+          </Content>
           <Footer style={{ textAlign: "center" }}>
             Ant Design ©2023 Created by Ant UED
           </Footer>

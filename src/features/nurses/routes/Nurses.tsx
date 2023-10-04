@@ -161,7 +161,7 @@ export const Nurses = () => {
     }
   };
   return (
-    <div className="p-4">
+    <div className="pt-4">
       <div className="flex justify-around">
         <Table
           columns={columns}
