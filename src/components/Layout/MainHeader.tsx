@@ -22,6 +22,7 @@ export const MainHeader = () => {
   const goHome = () => {
     navigate("/nurse-shift");
   };
+
   return (
     <div>
       <nav className="z-10 w-full absolute font-sans">
