@@ -150,12 +150,12 @@ export const Nurses = () => {
         editForm.resetFields();
         await fetchNurseList();
       } else {
-        Swal.fire("Fail", "validCheckRes.msg", "error");
+        Swal.fire("Fail", validCheckRes.msg, "error");
       }
     } catch (error) {
       // 유효성 검사 에러가 발생하면 여기로 들어옵니다.
       console.error("Validation failed:", error);
-      window.alert("양식을 채워주세요.");
+      Swal.fire("Fail", "양식을 채워주세요!", "error");
     } finally {
       setConfirmLoading(false);
     }
