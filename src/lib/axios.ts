@@ -39,21 +39,21 @@ commonAxios.interceptors.response.use(
           key: "error-notification",
           message: "토큰이 만료되었습니다. 로그인을 다시 해주세요.",
           description: errorCode,
-          duration: 0,
+          duration: 3,
         });
     } else if (errorCode === "403") {
       notification.error({
         key: "error-notification",
         message: "권한이 없습니다.",
         description: errorCode,
-        duration: 0,
+        duration: 3,
       });
     } else {
       notification.error({
         key: "error-notification",
         message: "API 에러 발생",
         description: errorCode,
-        duration: 0,
+        duration: 3,
       });
     }
     return Promise.reject(error);
