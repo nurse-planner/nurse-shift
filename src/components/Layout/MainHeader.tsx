@@ -16,11 +16,11 @@ export const MainHeader = () => {
   const logout = () => {
     localStorage.clear();
     Swal.fire("Success!", "성공적으로 로그아웃 되었습니다.", "success");
-    navigate("/nurse-shift");
+    navigate("/nurse-shift/");
   };
 
   const goHome = () => {
-    navigate("/nurse-shift");
+    navigate("/nurse-shift/");
   };
 
   return (

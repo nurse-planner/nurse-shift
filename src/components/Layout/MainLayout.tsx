@@ -17,7 +17,7 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
     token: { colorBgContainer },
   } = theme.useToken();
   const goHome = () => {
-    navigate("/nurse-shift");
+    navigate("/nurse-shift/");
   };
 
   return (
