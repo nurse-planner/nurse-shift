@@ -975,4 +975,7 @@ export default {
     "disabled",
   ],
   plugins: [],
+  corePlugins: {
+    preflight: false,
+  },
 };

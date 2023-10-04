@@ -33,7 +33,7 @@ export const Landing = () => {
               Nurse Shift Management with{" "}
               <span className="text-primary dark:text-white">Automation.</span>
             </h1>
-            <p className="mt-8 text-gray-700 dark:text-gray-300">
+            <p className="mt-8 text-gray-700 dark:text-gray-300 text-xl">
               현대의 바쁜 병원 환경에서 수간호사들은 수기로 간호사들의 근무표를
               작성하는 어려운 임무에 직면하고 있습니다. 자동화 시스템은 이를
               해결하여, 편안한 간호 생활을 할 수 있도록 도울 수 있습니다.

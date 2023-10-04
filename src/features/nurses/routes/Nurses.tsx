@@ -1,49 +1,51 @@
-import { Button, Card, Space, Table, Tag, Modal, Form } from 'antd';
-import { ColumnsType } from 'antd/es/table';
-import { Nurse } from '../types/index';
-import { useState, useEffect } from 'react';
-import getNurses from '../api/getNurses';
-import NurseForm from '../components/NurseForm';
-import checkValidNurse from '../utils/checkValidNurse';
-import addNurse from '../api/addNurse';
-import deleteNurse from '../api/deleteNurse';
+import { Button, Card, Table, Tag, Modal, Form } from "antd";
+import { ColumnsType } from "antd/es/table";
+import { Nurse } from "../types/index";
+import { useState, useEffect } from "react";
+import getNurses from "../api/getNurses";
+import NurseForm from "../components/NurseForm";
+import checkValidNurse from "../utils/checkValidNurse";
+import addNurse from "../api/addNurse";
+import deleteNurse from "../api/deleteNurse";
+import patchNurse from "../api/editNurse";
+import Swal from "sweetalert2";
 
 export const Nurses = () => {
-  const roleArray = ['Junior', 'Middle', 'Senior'];
+  const roleArray = ["Junior", "Middle", "Senior"];
   const columns: ColumnsType<Nurse> = [
     {
-      title: 'Id',
-      dataIndex: 'key',
-      key: 'key',
+      title: "Id",
+      dataIndex: "key",
+      key: "key",
     },
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
     },
     {
-      title: '임신 여부',
-      dataIndex: 'isPregnant',
-      key: 'isPregnant',
-      render: (value: boolean) => <div> {value ? '○' : 'X'}</div>,
+      title: "임신 여부",
+      dataIndex: "isPregnant",
+      key: "isPregnant",
+      render: (value: boolean) => <div> {value ? "○" : "X"}</div>,
     },
     {
-      title: '직급',
-      key: 'role',
-      dataIndex: 'role',
+      title: "직급",
+      key: "role",
+      dataIndex: "role",
       render: (value: number) => <div>{roleArray[value]}</div>,
     },
     {
-      title: 'duty keep',
-      key: 'action',
+      title: "duty keep",
+      key: "action",
       render: (value: Nurse) => {
         switch (value.dutyKeep) {
           case 0:
             break;
           case 1:
-            return <Tag color='orange'>Day</Tag>;
+            return <Tag color="orange">Day</Tag>;
           case 2:
-            return <Tag color='blue'>Night</Tag>;
+            return <Tag color="blue">Night</Tag>;
         }
       },
     },
@@ -93,8 +95,6 @@ export const Nurses = () => {
 
   const handleOk = async () => {
     setConfirmLoading(true);
-    const formData = addForm.getFieldsValue();
-    console.log(formData);
     try {
       const formData: Nurse = await addForm.validateFields();
       const validCheckRes = checkValidNurse(nurseList, formData, true);
@@ -102,7 +102,7 @@ export const Nurses = () => {
         await addNurse(formData);
         setOpenAddNurseModal(false);
         setConfirmLoading(false);
-        window.alert('간호사 추가 성공');
+        Swal.fire("Success", "간호사 추가 성공!", "success");
         addForm.resetFields();
         await fetchNurseList();
       } else {
@@ -110,15 +110,15 @@ export const Nurses = () => {
       }
     } catch (error) {
       // 유효성 검사 에러가 발생하면 여기로 들어옵니다.
-      console.error('Validation failed:', error);
-      window.alert('양식을 채워주세요.');
+      console.error("Validation failed:", error);
+      window.alert("양식을 채워주세요.");
     } finally {
       setConfirmLoading(false);
     }
   };
 
   const handleCancel = () => {
-    console.log('Clicked cancel button');
+    console.log("Clicked cancel button");
     setOpenAddNurseModal(false);
   };
 
@@ -136,24 +136,49 @@ export const Nurses = () => {
     }
   };
 
+  const onClickRefreshBtn = () => {
+    editForm.setFieldsValue(editNurse);
+  };
+
+  const onClickConfirmEditBtn = async () => {
+    try {
+      const formData: Nurse = await editForm.validateFields();
+      const validCheckRes = checkValidNurse(nurseList, formData, false);
+      if (validCheckRes.success) {
+        await patchNurse(formData);
+        Swal.fire("Success", "간호사 수정 성공!", "success");
+        editForm.resetFields();
+        await fetchNurseList();
+      } else {
+        Swal.fire("Fail", "validCheckRes.msg", "error");
+      }
+    } catch (error) {
+      // 유효성 검사 에러가 발생하면 여기로 들어옵니다.
+      console.error("Validation failed:", error);
+      window.alert("양식을 채워주세요.");
+    } finally {
+      setConfirmLoading(false);
+    }
+  };
   return (
-    <div>
-      <Space className='w-full'>
+    <div className="p-4">
+      <div className="flex justify-around">
         <Table
           columns={columns}
           dataSource={nurseList}
           rowSelection={{
-            type: 'radio',
-            selectedRowKeys: [selectedNurse != null ? selectedNurse.key : ''],
+            type: "radio",
+            selectedRowKeys: [selectedNurse != null ? selectedNurse.key : ""],
             ...rowSelection,
           }}
           pagination={{
             pageSize: 10,
           }}
+          className="w-4/5"
         />
-        <div>
-          <Button type='primary' onClick={showModal}>
-            Add user
+        <div className="flex flex-col items-end">
+          <Button type="primary" onClick={showModal} className="w-28 mb-4">
+            간호사 추가
           </Button>
           <Card
             title={editNurse?.name}
@@ -162,16 +187,16 @@ export const Nurses = () => {
               <Button loading={deleteLoading} onClick={onClickDeleteBtn}>
                 delete
               </Button>,
-              <Button>refresh</Button>,
-              <Button>Save</Button>,
+              <Button onClick={onClickRefreshBtn}>refresh</Button>,
+              <Button onClick={onClickConfirmEditBtn}>Save</Button>,
             ]}
           >
             <NurseForm nurse={editNurse} form={editForm} />
           </Card>
         </div>
-      </Space>
+      </div>
       <Modal
-        title='Title'
+        title="간호사 생성"
         open={openAddNurseModal}
         onOk={handleOk}
         confirmLoading={confirmLoading}
