@@ -96,6 +96,8 @@ export const Shifts = () => {
       } finally {
         //  setConfirmLoading(false);
       }
+    } else {
+      setIsModalOpen(false);
     }
   };
 
@@ -159,17 +161,32 @@ export const Shifts = () => {
         onCancel={handleOk}
         footer={[
           editMode ? (
-            <Button key="back" onClick={handleEditCancel}>
-              취소
-            </Button>
+            <div key="editmode">
+              <Button key="editBack" onClick={handleEditCancel}>
+                취소
+              </Button>
+              <Button key="editSubmit" type="primary" onClick={handleOk}>
+                확인
+              </Button>
+            </div>
           ) : (
-            <Button key="back" onClick={handleEditMode}>
-              수정
-            </Button>
+            <div key="normal" className="flex justify-between">
+              <Button key="back" onClick={handleOk} type="dashed" danger>
+                삭제
+              </Button>
+              <div className="flex">
+                <Button key="edit" onClick={handleEditMode}>
+                  수정
+                </Button>
+                <Button key="read" onClick={handleOk}>
+                  상세조회
+                </Button>
+                <Button key="submit" type="primary" onClick={handleOk}>
+                  확인
+                </Button>
+              </div>
+            </div>
           ),
-          <Button key="submit" type="primary" onClick={handleOk}>
-            확인
-          </Button>,
         ]}
       >
         {editMode ? (
