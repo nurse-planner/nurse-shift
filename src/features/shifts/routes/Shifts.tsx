@@ -28,8 +28,8 @@ export const Shifts = () => {
     setScheduleList(res);
   };
 
-  const goDetailView = () => {
-    navigate('/detail?param=value');
+  const goDetailView = (schedule: Schedule) => {
+    navigate(`/nurse-shift/dashboard/schedule/detail?startDate=${schedule}`);
   };
 
   useEffect(() => {

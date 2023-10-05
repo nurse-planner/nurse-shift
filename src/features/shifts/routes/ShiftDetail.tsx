@@ -1,20 +1,24 @@
 import dayjs from 'dayjs';
-import { Schedule } from '..';
-import { useEffect } from 'react';
+import { Schedule, Shift } from '..';
+import { useEffect, useState } from 'react';
 import fetchShiftList from '../api/fetchShiftList';
+import { useLocation } from 'react-router';
 
 export const ShiftDetail = () => {
-  const schedule: Schedule = {
-    startDate: '2023-10-01',
-    endDate: '2023-10-31',
-    created: true,
-    nurseCount: 2,
-  };
-  const date = dayjs(schedule.startDate, 'YYYY-MM-DD');
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+
+  // 예를 들어, URL이 /example?page=2라면, pageValue는 "2"가 됩니다.
+  const startDate = queryParams.get('startDate');
+
+  const [shiftList, setShiftList] = useState([] as Shift[]);
+  const date = dayjs(startDate, 'YYYY-MM-DD');
 
   const getShiftList = async () => {
-    const res = await fetchShiftList(schedule.startDate);
-    console.log(res);
+    if (startDate != null) {
+      const res = await fetchShiftList(startDate);
+      setShiftList(res);
+    }
   };
   useEffect(() => {
     getShiftList();
@@ -29,7 +33,9 @@ export const ShiftDetail = () => {
           <tr>
             <th>id</th>
             <th>name</th>
-            {}
+            {shiftList.map((_, index) => (
+              <th>{index + 1}</th>
+            ))}
           </tr>
         </thead>
       </table>
