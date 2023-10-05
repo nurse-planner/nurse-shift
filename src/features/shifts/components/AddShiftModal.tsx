@@ -1,6 +1,8 @@
 import { DatePicker, Form, Input, Modal, Switch } from 'antd';
 import addShift from '../api/addShift';
 import TextArea from 'antd/es/input/TextArea';
+import Swal from 'sweetalert2';
+import { AddScheduleBodyType } from '..';
 
 interface ChildProps {
   open: boolean;
@@ -9,13 +11,45 @@ interface ChildProps {
 
 const dateFormat = 'YYYY-MM-DD';
 
+const patternMapping = ['NOE', 'NOD', 'NON', 'EOD', 'DDDDD', 'DDDDE'];
+
 export const AddShiftModal = ({ open, setOpen }: ChildProps) => {
   const handleClose = () => {
     setOpen(false);
   };
 
   const onClickedAddShiftBtn = async () => {
-    await addShift();
+    try {
+      //const formData: EditScheduleForm = await editForm.validateFields();
+      await addForm.validateFields();
+      console.log(addForm.getFieldValue('startDate'));
+      const paramData: AddScheduleBodyType = {
+        title: addForm.getFieldValue('title'),
+        content: addForm.getFieldValue('content'),
+        startDate: addForm.getFieldValue('startDate').format(dateFormat),
+        sleepingOff: addForm.getFieldValue('sleepingOff'),
+        maxNurse: addForm.getFieldValue('maxNurse'),
+        minNurse: addForm.getFieldValue('minNurse'),
+        timeOut: addForm.getFieldValue('timeOut'),
+        patterns: patternMapping.filter((pattern) =>
+          addForm.getFieldValue(pattern)
+        ),
+      };
+      try {
+        await addShift(paramData);
+        Swal.fire('Success', '근무표 생성 요청 성공!', 'success').then(() => {
+          addForm.resetFields();
+          setOpen(false);
+        });
+      } catch (e) {
+        Swal.fire('Fail', '근무표 생성 요청 실패', 'error');
+      }
+    } catch (error) {
+      // 유효성 검사 에러가 발생하면 여기로 들어옵니다.
+      Swal.fire('Fail', '양식을 채워주세요!', 'error');
+    } finally {
+      //  setConfirmLoading(false);
+    }
   };
 
   const [addForm] = Form.useForm();
@@ -36,7 +70,7 @@ export const AddShiftModal = ({ open, setOpen }: ChildProps) => {
           <Input />
         </Form.Item>
         <Form.Item
-          name='start Date'
+          name='startDate'
           label='근무 시작일'
           rules={[{ required: true }]}
         >
@@ -59,33 +93,19 @@ export const AddShiftModal = ({ open, setOpen }: ChildProps) => {
         >
           <Input type='number' />
         </Form.Item>
-        <Form.Item
-          name='minNurse'
-          label='근무표 생성 최대 대기 시간(단위 : H)'
-          rules={[{ required: true }]}
-        >
+        <Form.Item name='sleepingOff' label='슬리핑 오프 부여 기준 N 근무수'>
+          <Input type='number' />
+        </Form.Item>
+        <Form.Item name='timeOut' label='근무표 생성 최대 대기 시간(단위 : H)'>
           <Input type='number' />
         </Form.Item>
         <h2> 기피 패턴 설정</h2>
         <div className='grid grid-cols-3 gap-3'>
-          <Form.Item name='NOE' label='NOE'>
-            <Switch />
-          </Form.Item>
-          <Form.Item name='NOD' label='NOD'>
-            <Switch />
-          </Form.Item>
-          <Form.Item name='NON' label='NON'>
-            <Switch />
-          </Form.Item>
-          <Form.Item name='EOD' label='EOD'>
-            <Switch />
-          </Form.Item>
-          <Form.Item name='DDDDD' label='DDDDD'>
-            <Switch />
-          </Form.Item>
-          <Form.Item name='DDDDE' label='DDDDE'>
-            <Switch />
-          </Form.Item>
+          {patternMapping.map((pattern) => (
+            <Form.Item name={pattern} label={pattern}>
+              <Switch />
+            </Form.Item>
+          ))}
         </div>
       </Form>
     </Modal>
