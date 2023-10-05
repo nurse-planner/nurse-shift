@@ -102,7 +102,7 @@ export const AddShiftModal = ({ open, setOpen }: ChildProps) => {
         <h2> 기피 패턴 설정</h2>
         <div className='grid grid-cols-3 gap-3'>
           {patternMapping.map((pattern) => (
-            <Form.Item name={pattern} label={pattern}>
+            <Form.Item name={pattern} label={pattern} key={pattern}>
               <Switch />
             </Form.Item>
           ))}
