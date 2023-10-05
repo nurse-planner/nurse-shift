@@ -1,6 +1,5 @@
 import { DatePicker, Form, Input, Modal, Switch } from 'antd';
 import addSchedule from '../api/addSchedule';
-import TextArea from 'antd/es/input/TextArea';
 import Swal from 'sweetalert2';
 import { AddScheduleBodyType } from '..';
 
@@ -24,16 +23,15 @@ export const AddShiftModal = ({ open, setOpen }: ChildProps) => {
       await addForm.validateFields();
       console.log(addForm.getFieldValue('startDate'));
       const paramData: AddScheduleBodyType = {
-        title: addForm.getFieldValue('title'),
-        content: addForm.getFieldValue('content'),
         startDate: addForm.getFieldValue('startDate').format(dateFormat),
         sleepingOff: addForm.getFieldValue('sleepingOff'),
         maxNurse: addForm.getFieldValue('maxNurse'),
         minNurse: addForm.getFieldValue('minNurse'),
         timeOut: addForm.getFieldValue('timeOut'),
         patterns: patternMapping.filter((pattern) =>
-          addForm.getFieldValue(pattern)
+          addForm.getFieldInstance(pattern)
         ),
+        maxNight: addForm.getFieldValue('maxNight'),
       };
       try {
         await addSchedule(paramData);
@@ -63,21 +61,11 @@ export const AddShiftModal = ({ open, setOpen }: ChildProps) => {
     >
       <Form form={addForm}>
         <Form.Item
-          name='title'
-          label='근무표 이름'
-          rules={[{ required: true }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
           name='startDate'
           label='근무 시작일'
           rules={[{ required: true }]}
         >
           <DatePicker format={dateFormat} />
-        </Form.Item>
-        <Form.Item name='content' label='설명' rules={[{ required: true }]}>
-          <TextArea />
         </Form.Item>
         <Form.Item
           name='maxNurse'
@@ -94,6 +82,9 @@ export const AddShiftModal = ({ open, setOpen }: ChildProps) => {
           <Input type='number' />
         </Form.Item>
         <Form.Item name='sleepingOff' label='슬리핑 오프 부여 기준 N 근무수'>
+          <Input type='number' />
+        </Form.Item>
+        <Form.Item name='maxNight' label='최대 N 근무 수'>
           <Input type='number' />
         </Form.Item>
         <Form.Item name='timeOut' label='근무표 생성 최대 대기 시간(단위 : H)'>

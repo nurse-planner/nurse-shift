@@ -38,12 +38,11 @@ export type AddScheduleFormType = {
 };
 
 export type AddScheduleBodyType = {
-  title: string;
-  content: string;
   startDate: string;
   sleepingOff: null | number;
   maxNurse: number;
   minNurse: number;
   timeOut: null | number;
   patterns: string[];
+  maxNight: number;
 };

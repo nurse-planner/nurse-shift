@@ -11,8 +11,8 @@ const NurseForm = (props: { nurse: Nurse | null; form: FormInstance }) => {
       <Form.Item name='role' label='직급' rules={[{ required: true }]}>
         <Select
           options={[
-            { value: 0, label: 'Junior' },
-            { value: 1, label: 'Middle' },
+            { value: 0, label: '신입' },
+            { value: 1, label: 'Junior' },
             { value: 2, label: 'Senior' },
           ]}
         ></Select>
