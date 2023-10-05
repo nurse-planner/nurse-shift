@@ -163,6 +163,9 @@ export const Nurses = () => {
   };
   return (
     <div className='pt-4'>
+      <Button type='primary' onClick={showModal} className='w-28 mb-4'>
+        간호사 추가
+      </Button>
       <div className='flex justify-around'>
         <Table
           columns={columns}
@@ -178,9 +181,6 @@ export const Nurses = () => {
           className='w-4/5'
         />
         <div className='flex flex-col items-end'>
-          <Button type='primary' onClick={showModal} className='w-28 mb-4'>
-            간호사 추가
-          </Button>
           <Card
             title={editNurse?.name}
             style={{ width: 300 }}
