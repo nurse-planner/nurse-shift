@@ -1,65 +1,65 @@
-import { Button, Card, FloatButton, List, Modal, Spin, Form } from "antd";
-import { EditScheduleForm, Schedule } from "..";
-import { FolderAddTwoTone } from "@ant-design/icons";
-import { useState } from "react";
-import EditShiftForm from "../components/editShiftForm";
-import dayjs from "dayjs";
-import Swal from "sweetalert2";
+import { Button, Card, FloatButton, List, Modal, Spin, Form } from 'antd';
+import { EditScheduleForm, Schedule } from '..';
+import { FolderAddTwoTone } from '@ant-design/icons';
+import { useState } from 'react';
+import EditShiftForm from '../components/editShiftForm';
+import dayjs from 'dayjs';
+import Swal from 'sweetalert2';
 export const Shifts = () => {
-  const dateFormat = "YYYY/MM/DD";
+  const dateFormat = 'YYYY/MM/DD';
   const scheduleList: Schedule[] = [
     {
-      id: "1",
-      key: "key1",
-      title: "Schedule 1",
-      content: "Content for Schedule 1",
-      startDate: "2023/10/01",
-      endDate: "2023/10/02",
+      id: '1',
+      key: 'key1',
+      title: 'Schedule 1',
+      content: 'Content for Schedule 1',
+      startDate: '2023/10/01',
+      endDate: '2023/10/02',
       created: false,
     },
     {
-      id: "2",
-      key: "key2",
-      title: "Schedule 2",
-      content: "Content for Schedule 2",
-      startDate: "2023/10/03",
-      endDate: "2023/10/04",
+      id: '2',
+      key: 'key2',
+      title: 'Schedule 2',
+      content: 'Content for Schedule 2',
+      startDate: '2023/10/03',
+      endDate: '2023/10/04',
       created: true,
     },
     {
-      id: "3",
-      key: "key3",
-      title: "Schedule 3",
-      content: "Content for Schedule 3",
-      startDate: "2023/10/05",
-      endDate: "2023/10/06",
+      id: '3',
+      key: 'key3',
+      title: 'Schedule 3',
+      content: 'Content for Schedule 3',
+      startDate: '2023/10/05',
+      endDate: '2023/10/06',
       created: true,
     },
     {
-      id: "4",
-      key: "key4",
-      title: "Schedule 4",
-      content: "Content for Schedule 4",
-      startDate: "2023/10/07",
-      endDate: "2023/10/08",
+      id: '4',
+      key: 'key4',
+      title: 'Schedule 4',
+      content: 'Content for Schedule 4',
+      startDate: '2023/10/07',
+      endDate: '2023/10/08',
       created: true,
     },
     {
-      id: "5",
-      key: "key5",
-      title: "Schedule 5",
-      content: "Content for Schedule 5",
-      startDate: "2023/10/09",
-      endDate: "2023/10/10",
+      id: '5',
+      key: 'key5',
+      title: 'Schedule 5',
+      content: 'Content for Schedule 5',
+      startDate: '2023/10/09',
+      endDate: '2023/10/10',
       created: true,
     },
     {
-      id: "6",
-      key: "key6",
-      title: "Schedule 6",
-      content: "Content for Schedule 6",
-      startDate: "2023/10/11",
-      endDate: "2023/10/12",
+      id: '6',
+      key: 'key6',
+      title: 'Schedule 6',
+      content: 'Content for Schedule 6',
+      startDate: '2023/10/11',
+      endDate: '2023/10/12',
       created: true,
     },
   ];
@@ -80,19 +80,19 @@ export const Shifts = () => {
         await editForm.validateFields();
         try {
           //await patchSchedule(formData);
-          Swal.fire("Success", "근무표 수정 성공!", "success").then(() => {
+          Swal.fire('Success', '근무표 수정 성공!', 'success').then(() => {
             editForm.resetFields();
             //await fetchScheduleList();
             setEditMode(false);
             setIsModalOpen(false);
           });
         } catch (e) {
-          Swal.fire("Fail", "근무표 수정 실패", "error");
+          Swal.fire('Fail', '근무표 수정 실패', 'error');
         }
       } catch (error) {
         // 유효성 검사 에러가 발생하면 여기로 들어옵니다.
-        console.error("Validation failed:", error);
-        Swal.fire("Fail", "양식을 채워주세요!", "error");
+        console.error('Validation failed:', error);
+        Swal.fire('Fail', '양식을 채워주세요!', 'error');
       } finally {
         //  setConfirmLoading(false);
       }
@@ -120,7 +120,7 @@ export const Shifts = () => {
   };
 
   return (
-    <div className="pt-4">
+    <div className='pt-4'>
       <List
         grid={{
           gutter: 16,
@@ -137,8 +137,8 @@ export const Shifts = () => {
             <List.Item>
               <Card
                 title={
-                  <div className="flex justify-between items-center pr-1">
-                    <h5 className="m-0 p-1">{schedule.title}</h5>
+                  <div className='flex justify-between items-center pr-1'>
+                    <h5 className='m-0 p-1'>{schedule.title}</h5>
                     <Spin spinning={!schedule.created} />
                   </div>
                 }
@@ -151,37 +151,37 @@ export const Shifts = () => {
                 <p>{schedule.content}</p>
               </Card>
             </List.Item>
-            <FloatButton icon={<FolderAddTwoTone />} type="primary" />
           </>
         )}
       />
+      <FloatButton icon={<FolderAddTwoTone />} type='primary' />
       <Modal
         title={selectedSchedue.title}
         open={isModalOpen}
         onCancel={handleOk}
         footer={[
           editMode ? (
-            <div key="editmode">
-              <Button key="editBack" onClick={handleEditCancel}>
+            <div key='editmode'>
+              <Button key='editBack' onClick={handleEditCancel}>
                 취소
               </Button>
-              <Button key="editSubmit" type="primary" onClick={handleOk}>
+              <Button key='editSubmit' type='primary' onClick={handleOk}>
                 확인
               </Button>
             </div>
           ) : (
-            <div key="normal" className="flex justify-between">
-              <Button key="back" onClick={handleOk} type="dashed" danger>
+            <div key='normal' className='flex justify-between'>
+              <Button key='back' onClick={handleOk} type='dashed' danger>
                 삭제
               </Button>
-              <div className="flex">
-                <Button key="edit" onClick={handleEditMode}>
+              <div className='flex'>
+                <Button key='edit' onClick={handleEditMode}>
                   수정
                 </Button>
-                <Button key="read" onClick={handleOk}>
+                <Button key='read' onClick={handleOk}>
                   상세조회
                 </Button>
-                <Button key="submit" type="primary" onClick={handleOk}>
+                <Button key='submit' type='primary' onClick={handleOk}>
                   확인
                 </Button>
               </div>
