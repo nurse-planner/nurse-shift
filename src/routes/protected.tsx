@@ -43,8 +43,8 @@ export const protectedRoutes = [
     element: <App />,
     children: [
       { path: '', element: <Shifts /> },
-      { path: 'schedules', element: <Shifts /> },
-      { path: 'schedules/detail/*', element: <ShiftDetail /> },
+      { path: 'schedule', element: <Shifts /> },
+      { path: 'schedule/detail', element: <ShiftDetail /> },
       { path: 'nurse/*', element: <Nurses /> },
       { path: '*', element: <NotFound /> },
     ],

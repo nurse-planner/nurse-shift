@@ -27,6 +27,7 @@
     "sweetalert2": "^11.7.31",
     "tailwindcss": "^3.3.3",
     "vite-tsconfig-paths": "^4.2.1",
+    "xlsx": "^0.18.5",
     "yarn": "^1.22.19"
   },
   "devDependencies": {
