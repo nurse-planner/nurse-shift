@@ -1,5 +1,5 @@
 import { DatePicker, Form, Input, Modal, Switch } from 'antd';
-import addShift from '../api/addShift';
+import addSchedule from '../api/addSchedule';
 import TextArea from 'antd/es/input/TextArea';
 import Swal from 'sweetalert2';
 import { AddScheduleBodyType } from '..';
@@ -36,7 +36,7 @@ export const AddShiftModal = ({ open, setOpen }: ChildProps) => {
         ),
       };
       try {
-        await addShift(paramData);
+        await addSchedule(paramData);
         Swal.fire('Success', '근무표 생성 요청 성공!', 'success').then(() => {
           addForm.resetFields();
           setOpen(false);

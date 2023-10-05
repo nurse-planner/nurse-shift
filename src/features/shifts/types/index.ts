@@ -3,11 +3,11 @@ import { Dayjs } from 'dayjs';
 export type Schedule = {
   id: string;
   key: string;
-  title: string;
-  content: string;
   startDate: string;
   endDate: string;
   created: boolean;
+  nurseCount: number;
+  shiftList?: Shift[];
 };
 
 export type EditScheduleFormType = {
@@ -15,6 +15,12 @@ export type EditScheduleFormType = {
   title: string;
   content: string;
   range: [Dayjs, Dayjs];
+};
+
+export type Shift = {
+  id: string;
+  name: string;
+  duties: string[];
 };
 
 export type AddScheduleFormType = {

@@ -50,6 +50,18 @@ const columns: ColumnsType<Nurse> = [
   },
 ];
 
+const convertStringToArray = (input: string | undefined): string[] => {
+  if (input != undefined && input.length > 0) {
+    return input.split(',').map((s) => s.trim());
+  } else {
+    return [];
+  }
+};
+
+const convertArrayToString = (input: string[]): string => {
+  return input.join(', ');
+};
+
 export const Nurses = () => {
   const [nurseList, setNurseList] = useState([] as Nurse[]);
   const [selectedNurse, setSelectedNurse] = useState<Nurse | null>(null);
@@ -81,6 +93,8 @@ export const Nurses = () => {
   useEffect(() => {
     if (editNurse) {
       editForm.setFieldsValue(editNurse);
+      editForm.setFieldValue('off', convertArrayToString(editNurse.offs));
+      editForm.setFieldValue('rest', convertArrayToString(editNurse.rests));
     } else {
       editForm.resetFields(); // editNurse가 null이면 폼 필드를 초기화합니다.
     }
@@ -92,14 +106,6 @@ export const Nurses = () => {
 
   const showModal = () => {
     setOpenAddNurseModal(true);
-  };
-
-  const convertStringToArray = (input: string | undefined): string[] => {
-    if (input != undefined) {
-      return input.split(',').map((s) => s.trim());
-    } else {
-      return [];
-    }
   };
 
   const handleOk = async () => {
@@ -119,10 +125,15 @@ export const Nurses = () => {
           offs: convertStringToArray(formData.off),
           rests: convertStringToArray(formData.rest),
         };
-        await addNurse(newNurse);
-        setOpenAddNurseModal(false);
-        setConfirmLoading(false);
-        Swal.fire('Success', '간호사 추가 성공!', 'success');
+        try {
+          await addNurse(newNurse);
+          setOpenAddNurseModal(false);
+          setConfirmLoading(false);
+          Swal.fire('Success', '간호사 추가 성공!', 'success');
+        } catch (e) {
+          Swal.fire('Error', '간호사 추가 실패', 'error');
+        }
+
         addForm.resetFields();
         await fetchNurseList();
       } else {

@@ -1,16 +1,20 @@
-import { Suspense } from "react";
-import { Outlet } from "react-router-dom";
+import { Suspense } from 'react';
+import { Outlet } from 'react-router-dom';
 
-import { MainLayout } from "@/components/Layout";
-import { Spin } from "antd";
-import { lazyImport } from "@/utils/lazyImport";
+import { MainLayout } from '@/components/Layout';
+import { Spin } from 'antd';
+import { lazyImport } from '@/utils/lazyImport';
 
-const { Nurses } = lazyImport(() => import("@/features/nurses"), "Nurses");
-const { NotFound } = lazyImport(() => import("@/features/misc"), "NotFound");
-const { Shifts } = lazyImport(() => import("@/features/shifts"), "Shifts");
+const { Nurses } = lazyImport(() => import('@/features/nurses'), 'Nurses');
+const { NotFound } = lazyImport(() => import('@/features/misc'), 'NotFound');
+const { Shifts } = lazyImport(() => import('@/features/shifts'), 'Shifts');
+const { ShiftDetail } = lazyImport(
+  () => import('@/features/shifts'),
+  'ShiftDetail'
+);
 const { AuthRoutes } = lazyImport(
-  () => import("@/features/auth"),
-  "AuthRoutes"
+  () => import('@/features/auth'),
+  'AuthRoutes'
 );
 // eslint-disable-next-line react-refresh/only-export-components
 const App = () => {
@@ -18,7 +22,7 @@ const App = () => {
     <MainLayout>
       <Suspense
         fallback={
-          <div className="h-full w-full flex items-center justify-center">
+          <div className='h-full w-full flex items-center justify-center'>
             <Spin spinning={true} />
           </div>
         }
@@ -31,16 +35,18 @@ const App = () => {
 
 export const protectedRoutes = [
   {
-    path: "/nurse-shift/auth/*",
+    path: '/nurse-shift/auth/*',
     element: <AuthRoutes />,
   },
   {
-    path: "/nurse-shift/dashboard/",
+    path: '/nurse-shift/dashboard/',
     element: <App />,
     children: [
-      { path: "", element: <Shifts /> },
-      { path: "nurse/*", element: <Nurses /> },
-      { path: "*", element: <NotFound /> },
+      { path: '', element: <Shifts /> },
+      { path: 'schedules', element: <Shifts /> },
+      { path: 'schedules/detail/*', element: <ShiftDetail /> },
+      { path: 'nurse/*', element: <Nurses /> },
+      { path: '*', element: <NotFound /> },
     ],
   },
 ];
