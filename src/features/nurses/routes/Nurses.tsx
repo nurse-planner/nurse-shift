@@ -1,6 +1,6 @@
 import { Button, Card, Table, Tag, Modal, Form } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import { Nurse } from '../types/index';
+import { Nurse, NurseFormType } from '../types/index';
 import { useState, useEffect } from 'react';
 import getNurses from '../api/getNurses';
 import NurseForm from '../components/NurseForm';
@@ -94,13 +94,32 @@ export const Nurses = () => {
     setOpenAddNurseModal(true);
   };
 
+  const convertStringToArray = (input: string | undefined): string[] => {
+    if (input != undefined) {
+      return input.split(',').map((s) => s.trim());
+    } else {
+      return [];
+    }
+  };
+
   const handleOk = async () => {
     setConfirmLoading(true);
     try {
-      const formData: Nurse = await addForm.validateFields();
+      const formData: NurseFormType = await addForm.validateFields();
       const validCheckRes = checkValidNurse(nurseList, formData, true);
       if (validCheckRes.success) {
-        await addNurse(formData);
+        const newNurse: Nurse = {
+          id: '',
+          key: '',
+          name: formData.name,
+          isPregnant: formData.isPregnant,
+          role: formData.role,
+          dutyKeep: formData.dutyKeep,
+          preceptorId: formData.preceptorId,
+          offs: convertStringToArray(formData.off),
+          rests: convertStringToArray(formData.rest),
+        };
+        await addNurse(newNurse);
         setOpenAddNurseModal(false);
         setConfirmLoading(false);
         Swal.fire('Success', '간호사 추가 성공!', 'success');
@@ -143,10 +162,21 @@ export const Nurses = () => {
 
   const onClickConfirmEditBtn = async () => {
     try {
-      const formData: Nurse = await editForm.validateFields();
+      const formData: NurseFormType = await editForm.validateFields();
       const validCheckRes = checkValidNurse(nurseList, formData, false);
-      if (validCheckRes.success) {
-        await patchNurse(formData);
+      if (validCheckRes.success && editNurse != null) {
+        const newNurse: Nurse = {
+          id: editNurse.id,
+          key: '',
+          name: formData.name,
+          isPregnant: formData.isPregnant,
+          role: formData.role,
+          dutyKeep: formData.dutyKeep,
+          preceptorId: formData.preceptorId,
+          offs: convertStringToArray(formData.off),
+          rests: convertStringToArray(formData.rest),
+        };
+        await patchNurse(newNurse);
         Swal.fire('Success', '간호사 수정 성공!', 'success');
         editForm.resetFields();
         await fetchNurseList();
@@ -178,7 +208,7 @@ export const Nurses = () => {
           pagination={{
             pageSize: 10,
           }}
-          className='w-4/5'
+          className='w-9/12'
         />
         <div className='flex flex-col items-end'>
           <Card
