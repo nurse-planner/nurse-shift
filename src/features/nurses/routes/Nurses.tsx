@@ -203,10 +203,13 @@ export const Nurses = () => {
     }
   };
   return (
-    <div className='pt-4'>
-      <Button type='primary' onClick={showModal} className='w-28 mb-4'>
-        간호사 추가
-      </Button>
+    <div className='pt-4 flex flex-col '>
+      <div className='flex w-full justify-end'>
+        <Button type='primary' onClick={showModal} className='w-28 mb-4 mr-4'>
+          간호사 추가
+        </Button>
+      </div>
+
       <div className='flex justify-around'>
         <Table
           columns={columns}

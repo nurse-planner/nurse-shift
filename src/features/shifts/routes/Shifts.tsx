@@ -1,4 +1,4 @@
-import { Button, Card, FloatButton, List, Modal, Spin } from 'antd';
+import { Button, Card, FloatButton, List, Modal } from 'antd';
 import { Schedule } from '..';
 import { FolderAddTwoTone } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
@@ -58,7 +58,7 @@ export const Shifts = () => {
                 title={
                   <div className='flex justify-between items-center pr-1'>
                     <h5 className='m-0 p-1'>{schedule.startDate}</h5>
-                    <Spin spinning={!schedule.created} />
+                    {/* <Spin spinning={!schedule.created} /> */}
                   </div>
                 }
                 hoverable={true}
@@ -67,6 +67,7 @@ export const Shifts = () => {
                 <p>
                   {schedule.startDate} ~ {schedule.endDate}
                 </p>
+                <p>간호사 수 : {schedule.nurseCount}</p>
               </Card>
             </List.Item>
           </>
