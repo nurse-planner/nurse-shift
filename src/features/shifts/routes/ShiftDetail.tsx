@@ -5,8 +5,6 @@ import fetchShiftList from '../api/fetchShiftList';
 
 export const ShiftDetail = () => {
   const schedule: Schedule = {
-    id: '1',
-    key: '1',
     startDate: '2023-10-01',
     endDate: '2023-10-31',
     created: true,

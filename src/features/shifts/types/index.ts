@@ -1,8 +1,6 @@
 import { Dayjs } from 'dayjs';
 
 export type Schedule = {
-  id: string;
-  key: string;
   startDate: string;
   endDate: string;
   created: boolean;
