@@ -1,4 +1,4 @@
-import { Dayjs } from "dayjs";
+import { Dayjs } from 'dayjs';
 
 export type Schedule = {
   id: string;
@@ -10,7 +10,7 @@ export type Schedule = {
   created: boolean;
 };
 
-export type EditScheduleForm = {
+export type EditScheduleFormType = {
   id: string;
   title: string;
   content: string;

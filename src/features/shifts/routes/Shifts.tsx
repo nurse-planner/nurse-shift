@@ -1,10 +1,11 @@
 import { Button, Card, FloatButton, List, Modal, Spin, Form } from 'antd';
-import { EditScheduleForm, Schedule } from '..';
+import { EditScheduleFormType, Schedule } from '..';
 import { FolderAddTwoTone } from '@ant-design/icons';
 import { useState } from 'react';
-import EditShiftForm from '../components/editShiftForm';
 import dayjs from 'dayjs';
 import Swal from 'sweetalert2';
+import EditShiftForm from '../components/EditShiftForm';
+import { AddShiftModal } from '../components/AddShiftModal';
 export const Shifts = () => {
   const dateFormat = 'YYYY/MM/DD';
   const scheduleList: Schedule[] = [
@@ -67,6 +68,8 @@ export const Shifts = () => {
   const [selectedSchedue, setSelectedSchedue] = useState({} as Schedule);
   const [editMode, setEditMode] = useState(false);
   const [editForm] = Form.useForm();
+  const [isAddShiftModalOpen, setIsAddShiftModalOpen] = useState(false);
+
   const showModal = (curtCchedule: Schedule) => {
     setSelectedSchedue(curtCchedule);
     setIsModalOpen(true);
@@ -107,7 +110,7 @@ export const Shifts = () => {
 
   const handleEditMode = () => {
     setEditMode(true);
-    const editData: EditScheduleForm = {
+    const editData: EditScheduleFormType = {
       id: selectedSchedue.id,
       title: selectedSchedue.title,
       content: selectedSchedue.content,
@@ -154,7 +157,15 @@ export const Shifts = () => {
           </>
         )}
       />
-      <FloatButton icon={<FolderAddTwoTone />} type='primary' />
+      <FloatButton
+        icon={<FolderAddTwoTone />}
+        type='primary'
+        onClick={() => setIsAddShiftModalOpen(true)}
+      />
+      <AddShiftModal
+        open={isAddShiftModalOpen}
+        setOpen={setIsAddShiftModalOpen}
+      />
       <Modal
         title={selectedSchedue.title}
         open={isModalOpen}
