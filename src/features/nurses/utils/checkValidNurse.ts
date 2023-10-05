@@ -1,8 +1,8 @@
-import { Nurse } from '..';
+import { Nurse, NurseFormType } from '..';
 
 export default function checkValidNurse(
   nurseList: Nurse[],
-  nurse: Nurse,
+  nurse: NurseFormType,
   isNew: boolean
 ) {
   const res = {
