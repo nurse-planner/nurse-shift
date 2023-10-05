@@ -24,8 +24,8 @@ export const Shifts = () => {
   };
 
   const getScheduleList = async () => {
-    const res = await fetchScheduleList();
-    console.log(res);
+    const res: Schedule[] = await fetchScheduleList();
+    setScheduleList(res);
   };
 
   const goDetailView = () => {

@@ -1,7 +1,8 @@
 import commonAxios from '@/lib/axios';
 export default async function fetchScheduleList() {
   try {
-    commonAxios.get('/schedule/all');
+    const res = await commonAxios.get('/schedule/all');
+    return res.data;
   } catch (error) {
     console.error(error);
     return [];
