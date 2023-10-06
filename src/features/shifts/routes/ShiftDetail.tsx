@@ -69,7 +69,7 @@ export const ShiftDetail = () => {
               <td className='border p-2'>{shift.name}</td>
               {shift.duties.map((duty, dutyIndex) => (
                 <td key={dutyIndex} className='border p-2'>
-                  {duty}
+                  {duty.length > 0 ? duty : 'O'}
                 </td>
               ))}
             </tr>
