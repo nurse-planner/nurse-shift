@@ -29,6 +29,9 @@ const NurseForm = (props: { nurse: Nurse | null; form: FormInstance }) => {
       <Form.Item name='preceptorId' label='Preceptor'>
         <Input />
       </Form.Item>
+      <Form.Item name='workingYear' label='연차' rules={[{ required: true }]}>
+        <Input type='number' />
+      </Form.Item>
       <Form.Item
         name='isPregnant'
         label='임신 여부'

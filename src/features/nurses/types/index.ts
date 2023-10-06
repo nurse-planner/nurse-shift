@@ -8,6 +8,7 @@ export type Nurse = {
   preceptorId: string | null;
   offs: string[];
   rests: string[];
+  workingYear: number;
 } & BaseEntity;
 
 export type NurseFormType = {
@@ -18,6 +19,7 @@ export type NurseFormType = {
   preceptorId: string | null;
   off: string;
   rest: string;
+  workingYear: number;
 } & BaseEntity;
 
 export default Nurse;

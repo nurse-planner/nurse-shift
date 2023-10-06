@@ -124,6 +124,7 @@ export const Nurses = () => {
           preceptorId: formData.preceptorId,
           offs: convertStringToArray(formData.off),
           rests: convertStringToArray(formData.rest),
+          workingYear: formData.workingYear,
         };
         try {
           await addNurse(newNurse);
@@ -186,6 +187,7 @@ export const Nurses = () => {
           preceptorId: formData.preceptorId,
           offs: convertStringToArray(formData.off),
           rests: convertStringToArray(formData.rest),
+          workingYear: formData.workingYear,
         };
         await patchNurse(newNurse);
         Swal.fire('Success', '간호사 수정 성공!', 'success');

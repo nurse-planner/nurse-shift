@@ -51,11 +51,15 @@ export const ShiftDetail = () => {
           <tr>
             <th className='border p-2'>id</th>
             <th className='border p-2'>name</th>
-            {shiftList.map((_, index) => (
-              <th key={index} className='border p-2'>
-                {index + 1}
-              </th>
-            ))}
+            {shiftList.length > 0 &&
+            shiftList[0].duties &&
+            shiftList[0]?.duties.length > 0
+              ? shiftList[0].duties.map((_, index) => (
+                  <th key={index} className='border p-2'>
+                    {index + 1}
+                  </th>
+                ))
+              : null}
           </tr>
         </thead>
         <tbody>
